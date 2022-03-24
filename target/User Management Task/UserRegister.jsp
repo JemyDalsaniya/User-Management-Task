@@ -242,7 +242,7 @@
 							<div>
 								<a class="btn btn-success btn-sm" id="add-more"
 									href="javascript:;" role="button"><i class="fa fa-plus"></i>
-									Add more address</a>
+									Add address</a>
 							</div>
 						</div>
 <!-- 					</form>

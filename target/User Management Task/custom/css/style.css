@@ -66,30 +66,38 @@
 .all_page_background {
 	background-color: rgba(134, 191, 219, 0.651);
 }
+
 .submit_btn {
 	text-align: center;
 }
+
 .bg_custom_color {
-		background-color: rgba(134, 191, 219, 0.651) !important;
+	background-color: rgba(134, 191, 219, 0.651) !important;
 }
+
 .bg-info {
 	background-color: rgba(134, 191, 219, 0.651) !important;
 }
+
 a.bg-info:focus, a.bg-info:hover, button.bg-info:focus, button.bg-info:hover
 	{
 	background-color: rgba(134, 191, 219, 0.651) !important;
 }
+
 .icon_size {
-	font-size : 20px;
+	font-size: 20px;
 }
+
 .footer_margin {
-	position: sticky;
+	position: absolute;
 	bottom: 0;
 	background-color: black;
 	color: white;
 	padding: 10px 30px;
 	margin-top: 30px;
+	width: 100%;
 }
+
 .top-nav-centered {
 	position: relative;
 }
@@ -109,7 +117,7 @@ a.bg-info:focus, a.bg-info:hover, button.bg-info:focus, button.bg-info:hover
 	position: absolute;
 	top: 50%;
 	left: 50%;
- 	transform: translate(-50%, -50%);
- 	width: auto;
+	transform: translate(-50%, -50%);
+	width: auto;
 	color: white;
 }
