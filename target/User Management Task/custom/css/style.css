@@ -67,20 +67,7 @@
 	background-color: rgba(134, 191, 219, 0.651);
 }
 
-.submit_btn {
-	text-align: center;
-}
-
 .bg_custom_color {
-	background-color: rgba(134, 191, 219, 0.651) !important;
-}
-
-.bg-info {
-	background-color: rgba(134, 191, 219, 0.651) !important;
-}
-
-a.bg-info:focus, a.bg-info:hover, button.bg-info:focus, button.bg-info:hover
-	{
 	background-color: rgba(134, 191, 219, 0.651) !important;
 }
 
@@ -88,36 +75,7 @@ a.bg-info:focus, a.bg-info:hover, button.bg-info:focus, button.bg-info:hover
 	font-size: 20px;
 }
 
-.footer_margin {
-	position: absolute;
-	bottom: 0;
-	background-color: black;
-	color: white;
-	padding: 10px 30px;
-	margin-top: 30px;
+.table_css {
 	width: 100%;
-}
-
-.top-nav-centered {
-	position: relative;
-}
-
-.container8 {
-	position: fixed;
-	top: 0;
-	background-color: black;
-	color: white;
-	padding: 10px 30px;
-	width: 100%;
-	text-align: center;
-}
-
-.content-center {
-	float: none;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: auto;
-	color: white;
+	font-size: 17px;
 }

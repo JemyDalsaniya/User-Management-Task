@@ -17,8 +17,8 @@
 <body class="all_page_background">
 	<jsp:include page="header.jsp" />
 	<div class="container">
-		<table id="example" class="table table-striped table-bordered"
-			style="width: 100%">
+		<table id="example" class="table table-striped table-bordered table_css"
+			>
 			<thead>
 				<tr>
 					<th>Name</th>

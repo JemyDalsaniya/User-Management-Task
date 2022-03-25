@@ -11,6 +11,10 @@ public interface UserDaoInterface {
 	 */
 	public boolean compareUserLogin(User user);
 
+	/**
+	 * 
+	 * @param user
+	 */
 	public void userRegister(User user);
 
 }

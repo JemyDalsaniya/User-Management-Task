@@ -4,11 +4,11 @@
 <html>
 
 <head>
- <script type="text/javascript">
+<!--  <script type="text/javascript">
    function preventBack(){window.history.forward();}
     setTimeout("preventBack()", 0);
     window.onunload=function(){null};
-</script> 
+</script>  -->
  
 
 <meta charset="ISO-8859-1">
@@ -29,14 +29,14 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="EmployeeHomePage.jsp">Home</a>
+				<a class="navbar-brand" href="UserHomePage.jsp">Home</a>
 			</div>
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="#">View Profile<span
-							class="sr-only">(current)</span></a>
-					<li><a href="#">Edit Profile<span
+					<!-- <li><a href="#">View Profile<span
+							class="sr-only">(current)</span></a> -->
+					<li><a href="UserRegister.jsp">Edit Profile<span
 							class="sr-only">(current)</span></a>
 				
 					
@@ -51,5 +51,6 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+		<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

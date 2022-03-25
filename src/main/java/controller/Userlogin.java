@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import model.User;
 import service.UserServiceImpl;
+import utility.EncryptionFile;
 
 /**
  * Servlet implementation class Userlogin
@@ -49,12 +50,23 @@ public class Userlogin extends HttpServlet {
 		response.setContentType("text/html");
 		HttpSession session = request.getSession();
 
+		// decrypt the encrypted password from database
+		EncryptionFile ee = null;
+		try {
+			ee = new EncryptionFile();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// String decrypt_pwd = ee.decrypt(request.getParameter("password"));
+		// System.out.println(decrypt_pwd);
+
 		user.setUserEmail(request.getParameter("email"));
 		user.setUserPassword(request.getParameter("password"));
+//		user.setUserPassword(decrypt_pwd);
 
 		UserServiceImpl service = new UserServiceImpl();
 		boolean isValid = service.compareUserLogin(user);
-		System.out.println("isValid inside userlogin" + isValid);
 
 		if (isValid) {
 			if (user.getUserStatus()) {
