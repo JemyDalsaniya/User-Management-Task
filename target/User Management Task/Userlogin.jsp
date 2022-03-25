@@ -3,12 +3,12 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>User login form</title>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" />
-<!-- Fontawesome CSS CDN -->
+ <link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" /> 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
-<link rel="stylesheet" href="custom/css/style.css" />
+ <link rel="stylesheet" href="custom/css/style.css" />
+ <!-- Fontawesome CSS CDN -->
 </head>
 <body class="bg-info bg_custom_color">
 	<div class="container">
@@ -78,6 +78,6 @@
 	<!-- jQuery CDN -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<%-- 	<jsp:include page="footer.jsp" />
+<%--  	<%@ include file="footer.jsp" %>  
  --%></body>
 </html>

@@ -1,8 +1,10 @@
 dao\UserDaoImpl.class
 controller\Userlogin.class
 utility\MyConnection.class
+utility\EncryptionFile.class
 dao\UserDaoInterface.class
 service\UserServiceImpl.class
 model\User.class
+controller\UserRegister.class
 model\Address.class
 service\UserServiceDao.class

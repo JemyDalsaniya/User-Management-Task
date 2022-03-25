@@ -21,6 +21,7 @@ public class UserDaoImpl implements UserDaoInterface {
 		}
 	}
 
+	// implementation of user login
 	@Override
 	public boolean compareUserLogin(User user) {
 		try {
@@ -48,6 +49,7 @@ public class UserDaoImpl implements UserDaoInterface {
 		return false;
 	}
 
+	// implementation of of user service
 	@Override
 	public void userRegister(User user) {
 		// TODO Auto-generated method stub
@@ -60,6 +62,9 @@ public class UserDaoImpl implements UserDaoInterface {
 			pstmt.setString(4, user.getUserContact());
 			pstmt.setString(5, user.getUserGender());
 			pstmt.setString(6, user.getUserHobby());
+
+			System.out.println("values inside user dao impl:" + user.getUserName());
+			System.out.println("values inside user dao impl:" + user.getUserEmail());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
