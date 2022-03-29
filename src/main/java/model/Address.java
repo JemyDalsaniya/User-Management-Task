@@ -3,8 +3,8 @@ package model;
 public class Address {
 
 	private int addId;
-	private int addPincode;
 	private int addUserID;
+	private String addPincode;
 	private String addStreet;
 	private String addLandmark;
 	private String addCity;
@@ -18,12 +18,12 @@ public class Address {
 		this.addId = addId;
 	}
 
-	public int getAddPincode() {
+	public String getAddPincode() {
 		return addPincode;
 	}
 
-	public void setAddPincode(int addPincode) {
-		this.addPincode = addPincode;
+	public void setAddPincode(String pincode) {
+		this.addPincode = pincode;
 	}
 
 	public int getAddUserID() {

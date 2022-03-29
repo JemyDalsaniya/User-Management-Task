@@ -7,7 +7,7 @@
 <title>Forget Password Form</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" />
-<!-- Fontawesome CSS CDN -->
+<!-- Font awesome CSS CDN -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
 <link rel="stylesheet" href="custom/css/style.css" />
@@ -26,7 +26,7 @@
 						<p class="lead text-center text-secondary">To reset your
 							password, enter the registered e-mail adddress and set New
 							Password!!</p>
-						<form action="#" method="post" class="px-3" id="login-form">
+						<form action="ForgetPasswordServlet" method="post" class="px-3" id="login-form">
 							<div id="forgotAlert"></div>
 							<div class="input-group input-group-lg form-group">
 								<div class="input-group-prepend">
@@ -42,8 +42,8 @@
 										class="fas fa-key fa-lg fa-fw"></i></span>
 								</div>
 								<input type="password" id="password" name="password"
-									class="form-control rounded-0" minlength="5"
-									placeholder="New Password" required autocomplete="off" />
+									class="form-control rounded-0" placeholder="New Password"
+									autocomplete="off" />
 							</div>
 							<div class="input-group input-group-lg form-group">
 								<div class="input-group-prepend">
@@ -51,8 +51,8 @@
 										class="fas fa-key fa-lg fa-fw"></i></span>
 								</div>
 								<input type="password" id="password" name="password"
-									class="form-control rounded-0" minlength="5"
-									placeholder="Confirm Password" required autocomplete="off" />
+									class="form-control rounded-0" placeholder="Confirm Password"
+									autocomplete="off" />
 							</div>
 
 							<div class="form-group">
@@ -79,6 +79,7 @@
 	<!-- jQuery CDN -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<%-- 	<%@ include file="footer.jsp"%>
- --%></body>
+	<%-- 	<%@ include file="footer.jsp"%>
+ --%>
+</body>
 </html>

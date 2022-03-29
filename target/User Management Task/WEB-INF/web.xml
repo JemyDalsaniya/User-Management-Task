@@ -15,13 +15,58 @@
     <url-pattern>/Userlogin</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description></description>
     <display-name>UserRegister</display-name>
     <servlet-name>UserRegister</servlet-name>
     <servlet-class>controller.UserRegister</servlet-class>
+    <multipart-config>
+      <location>/tmp</location>
+      <max-file-size>20848820</max-file-size>
+      <max-request-size>418018841</max-request-size>
+      <file-size-threshold>1048576</file-size-threshold>
+    </multipart-config>
   </servlet>
   <servlet-mapping>
     <servlet-name>UserRegister</servlet-name>
     <url-pattern>/UserRegister</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewUserDetails</display-name>
+    <servlet-name>ViewUserDetails</servlet-name>
+    <servlet-class>controller.ViewUserDetails</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewUserDetails</servlet-name>
+    <url-pattern>/ViewUserDetails</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteUser</display-name>
+    <servlet-name>DeleteUser</servlet-name>
+    <servlet-class>controller.DeleteUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteUser</servlet-name>
+    <url-pattern>/DeleteUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ForgetPasswordServlet</display-name>
+    <servlet-name>ForgetPasswordServlet</servlet-name>
+    <servlet-class>controller.ForgetPasswordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ForgetPasswordServlet</servlet-name>
+    <url-pattern>/ForgetPasswordServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChangeRole</display-name>
+    <servlet-name>ChangeRole</servlet-name>
+    <servlet-class>controller.ChangeRole</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangeRole</servlet-name>
+    <url-pattern>/ChangeRole</url-pattern>
   </servlet-mapping>
 </web-app>
