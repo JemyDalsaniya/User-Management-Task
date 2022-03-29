@@ -1,10 +1,14 @@
 dao\UserDaoImpl.class
+dao\UserDaoInterface.class
+controller\ForgetPasswordServlet.class
+controller\ViewUserDetails.class
+model\Address.class
+service\UserServiceDao.class
 controller\Userlogin.class
+controller\DeleteUser.class
 utility\MyConnection.class
 utility\EncryptionFile.class
-dao\UserDaoInterface.class
+controller\ChangeRole.class
 service\UserServiceImpl.class
 model\User.class
 controller\UserRegister.class
-model\Address.class
-service\UserServiceDao.class

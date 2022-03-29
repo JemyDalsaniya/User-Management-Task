@@ -1,9 +1,18 @@
 package model;
 
+import java.io.InputStream;
+
 public class User {
 
 	private int userId;
-	private String userName, userEmail, userPassword, userContact, userGender, userHobby;
+	private String userName;
+	private String userEmail;
+	private String userPassword;
+	private String userContact;
+	private String userGender;
+	private String userHobby;
+	private String userDOB;
+	private InputStream userProfile;
 	private Boolean userStatus;
 
 	public int getUserId() {
@@ -62,6 +71,22 @@ public class User {
 		this.userHobby = userHobby;
 	}
 
+	public String getUserDOB() {
+		return userDOB;
+	}
+
+	public void setUserDOB(String userDOB) {
+		this.userDOB = userDOB;
+	}
+
+	public InputStream getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(InputStream userProfile) {
+		this.userProfile = userProfile;
+	}
+
 	public Boolean getUserStatus() {
 		return userStatus;
 	}
@@ -70,10 +95,4 @@ public class User {
 		this.userStatus = userStatus;
 	}
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userPassword="
-				+ userPassword + ", userContact=" + userContact + ", userGender=" + userGender + ", userHobby="
-				+ userHobby + ", userStatus=" + userStatus + "]";
-	}
 }

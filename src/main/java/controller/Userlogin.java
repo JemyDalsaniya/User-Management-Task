@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -46,23 +48,19 @@ public class Userlogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("inside user login");
 		User user = new User();
 		response.setContentType("text/html");
 		HttpSession session = request.getSession();
-
-		// decrypt the encrypted password from database
 		EncryptionFile ee = null;
 		try {
 			ee = new EncryptionFile();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		// String decrypt_pwd = ee.decrypt(request.getParameter("password"));
-		// System.out.println(decrypt_pwd);
+		String decrypt_pwd = ee.encrypt(request.getParameter("password"));
 
 		user.setUserEmail(request.getParameter("email"));
-		user.setUserPassword(request.getParameter("password"));
+		user.setUserPassword(decrypt_pwd);
 //		user.setUserPassword(decrypt_pwd);
 
 		UserServiceImpl service = new UserServiceImpl();
@@ -70,14 +68,24 @@ public class Userlogin extends HttpServlet {
 
 		if (isValid) {
 			if (user.getUserStatus()) {
-				session.setAttribute("admin", user);
-				response.sendRedirect("AdminHomePage.jsp");
+				List<User> list1;
+				try {
+					list1 = service.displayAdmin(user);
+					System.out.println(list1);
+					session.setAttribute("adminList", list1);
+					session.setAttribute("admin", user);
+					response.sendRedirect("AdminHomePage.jsp");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else {
 
 				session.setAttribute("user", user);
 				response.sendRedirect("UserHomePage.jsp");
 			}
 		}
+
 		/*
 		 * else { messages.put("error", "Enter valid EmailId and Password!!");
 		 * RequestDispatcher req = request.getRequestDispatcher("login.jsp");
