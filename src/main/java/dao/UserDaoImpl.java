@@ -52,11 +52,10 @@ public class UserDaoImpl implements UserDaoInterface {
 		return false;
 	}
 
-	// implementation of of user service
+	// implementation of of user Registration
 	@Override
 	public int userRegister(User user) {
 		int id = 0;
-		System.out.println("inside user dao impl");
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(
 					"insert into user(name,email,password,contact,gender,hobby,dob,isAdmin)values(?,?,?,?,?,?,?,0)");
@@ -83,10 +82,10 @@ public class UserDaoImpl implements UserDaoInterface {
 
 	}
 
+	// display user details on admin side
 	@Override
 	public List<User> displayUser(User user) throws SQLException {
 		// TODO Auto-generated method stub
-		System.out.println("inside userdao impl");
 		List<User> list = new ArrayList<User>();
 		PreparedStatement pstmt = conn.prepareStatement("select * from user where isAdmin=0");
 		ResultSet rs = pstmt.executeQuery();
@@ -147,16 +146,21 @@ public class UserDaoImpl implements UserDaoInterface {
 
 	}
 
+	// Enhancement 2. change role of user to Admin
 	@Override
-	public void changeRole(User user) throws SQLException {
+	public void changeRole(String id) throws SQLException {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmt = conn.prepareStatement("UPDATE user SET isAdmin = 1 WHERE user_id = ?");
 		// pstmt.setBoolean(1, user.getUserStatus());
-		pstmt.setInt(1, user.getUserId());
+//		pstmt.setInt(1, id.getUserId());
+		// System.out.println("status" + id.getUserStatus());
+		// System.out.println("id inside dao impl " + id.getUserId());
+		pstmt.setString(1, id);
 		pstmt.executeUpdate();
 
 	}
 
+	// Add address in database
 	@Override
 	public int addAddress(int userId, Address address) {
 		int count = 0;
@@ -166,11 +170,12 @@ public class UserDaoImpl implements UserDaoInterface {
 
 			pstmt.setString(1, address.getAddStreet());
 			pstmt.setString(2, address.getAddLandmark());
-			pstmt.setString(3, address.getAddCity());
-			pstmt.setString(4, address.getAddState());
-			pstmt.setString(5, address.getAddPincode());
+			pstmt.setString(3, address.getAddPincode());
+			pstmt.setString(4, address.getAddCity());
+			pstmt.setString(5, address.getAddState());
 			pstmt.setInt(6, userId);
 			count = pstmt.executeUpdate();
+			System.out.println("count of address updated rows   " + count);
 			if (count != 0) {
 				return count;
 			}

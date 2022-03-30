@@ -64,9 +64,10 @@ public class UserServiceImpl implements UserServiceDao {
 	}
 
 	@Override
-	public void changeRole(User user) throws SQLException {
+	public void changeRole(String id) throws SQLException {
 		// TODO Auto-generated method stub
-		object.changeRole(user);
+		System.out.println("user service change role method called");
+		object.changeRole(id);
 	}
 
 	@Override

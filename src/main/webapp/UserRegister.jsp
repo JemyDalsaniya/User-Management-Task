@@ -208,11 +208,11 @@
 													class="form-control" name="city[]" id="city"
 													style="height: auto;">
 													<option value="0">Select City</option>
-													<option value="1">Ahemdabad</option>
-													<option value="2">Junagadh</option>
-													<option value="3">Mumbai</option>
-													<option value="4">Surat</option>
-													<option value="5">Vadodara</option>
+													<option value="Ahemdabad">Ahemdabad</option>
+													<option value="Junagadh">Junagadh</option>
+													<option value="Mumbai">Mumbai</option>
+													<option value="Surat">Surat</option>
+													<option value="Vadodara">Vadodara</option>
 												</select> <span id="city_error"></span>
 
 											</div>
@@ -222,14 +222,14 @@
 												<label class="control-label" for="state_0">State</label> <select
 													class="form-control" name="state[]" id="state"
 													style="height: auto;">
-													<option value="0">Select City</option>
-													<option value="1">Gujarat</option>
-													<option value="2">Maharashtra</option>
-													<option value="3">Goa</option>
-													<option value="4">Punjab</option>
-													<option value="5">Assam</option>
-													<option value="6">Madhya Pradesh</option>
-													<option value="7">West Bengal</option>
+													<option value="0">Select State</option>
+													<option value="Gujarat">Gujarat</option>
+													<option value="Maharashtra">Maharashtra</option>
+													<option value="Goa">Goa</option>
+													<option value="Punjab">Punjab</option>
+													<option value="Assam">Assam</option>
+													<option value="Madhya Pradesh">Madhya Pradesh</option>
+													<option value="West Bengal">West Bengal</option>
 												</select> <span id="state_error"></span>
 											</div>
 										</div>

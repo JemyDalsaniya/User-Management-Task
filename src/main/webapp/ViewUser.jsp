@@ -15,60 +15,62 @@
 <link href="custom/css/style.css" rel="stylesheet">
 <style type="text/css">
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 25px;
+	position: relative;
+	display: inline-block;
+	width: 50px;
+	height: 25px;
 }
 
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 4px;
-  bottom: 3px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+	position: absolute;
+	content: "";
+	height: 20px;
+	width: 20px;
+	left: 4px;
+	bottom: 3px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
-input:checked + .slider {
-  background-color: #2196F3;
+input:checked+.slider {
+	background-color: #2196F3;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+input:focus+.slider {
+	box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+input:checked+.slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
 }
+
 .slider.round {
-  border-radius: 34px;
+	border-radius: 34px;
 }
+
 .slider.round:before {
-  border-radius: 50%;
+	border-radius: 50%;
 }
 </style>
 
@@ -109,7 +111,8 @@ input:checked + .slider:before {
 						<td>
 							<!-- Default switch -->
 							<div class="custom-control custom-switch">
-								<label class="switch"> <input type="checkbox" class="role_admin" id ="${user.userId}"> <span
+								<label class="switch"> <input type="checkbox"
+									class="role_admin" id="${user.userId}"> <span
 									class="slider round"></span>
 								</label>
 							</div>
@@ -130,10 +133,27 @@ input:checked + .slider:before {
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 	<script src="custom/js/datatable.js"></script>
-	<script src="custom/js/changerole.js"></script>
-
+	<!-- 	<script src="custom/js/change_role.js"></script>
+ -->
 	<script>
 		$(document).ready(function() {
+
+			$(".role_admin").on("change", function() {
+				//var id = $(this).val();
+				// var trid = $(this).closest('tr').attr('id'); // table row ID 
+				var trid = +this.id;
+				console.log(trid);
+				$.ajax({
+					url : "ChangeRole?trid=" + trid,
+					type : "post",
+					data : ({
+						trid : trid,
+					}),
+					success : function(data) {
+						alert("sucess");
+					}
+				})
+			});
 
 			$(".delete").click(function() {
 

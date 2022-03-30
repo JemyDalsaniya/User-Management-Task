@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -51,13 +50,13 @@ public class ChangeRole extends HttpServlet {
 
 		User user = new User();
 		UserServiceImpl service = new UserServiceImpl();
-		String id = request.getParameter("userId");
+		String id = request.getParameter("trid");
 		System.out.println("id inside changeRole" + id);
 
 		try {
-			service.changeRole(user);
-			RequestDispatcher req = request.getRequestDispatcher("/AdminHomePage.jsp");
-			req.forward(request, response);
+			service.changeRole(id);
+//			RequestDispatcher req = request.getRequestDispatcher("/AdminHomePage.jsp");
+//			req.forward(request, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

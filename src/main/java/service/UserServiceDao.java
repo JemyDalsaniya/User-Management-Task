@@ -63,7 +63,7 @@ public interface UserServiceDao {
 	 * 
 	 * @throws SQLException
 	 */
-	public void changeRole(User user) throws SQLException;
+	public void changeRole(String id) throws SQLException;
 
 	public int addAddress(int userId, Address address);
 
