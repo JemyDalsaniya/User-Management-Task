@@ -1,6 +1,7 @@
 package model;
 
 import java.io.InputStream;
+import java.sql.Blob;
 
 public class User {
 
@@ -13,7 +14,9 @@ public class User {
 	private String userHobby;
 	private String userDOB;
 	private InputStream userProfile;
+	private Blob userProfileBlob;
 	private Boolean userStatus;
+	private String base64Image;
 
 	public int getUserId() {
 		return userId;
@@ -87,12 +90,28 @@ public class User {
 		this.userProfile = userProfile;
 	}
 
+	public Blob getUserProfileBlob() {
+		return userProfileBlob;
+	}
+
+	public void setUserProfileBlob(Blob userProfileBlob) {
+		this.userProfileBlob = userProfileBlob;
+	}
+
 	public Boolean getUserStatus() {
 		return userStatus;
 	}
 
 	public void setUserStatus(Boolean userStatus) {
 		this.userStatus = userStatus;
+	}
+
+	public String getBase64Image() {
+		return base64Image;
+	}
+
+	public void setBase64Image(String base64Image) {
+		this.base64Image = base64Image;
 	}
 
 }

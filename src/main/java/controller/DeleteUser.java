@@ -8,26 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.UserService;
 import service.UserServiceImpl;
 
-/**
- * Servlet implementation class DeleteUser
- */
 public class DeleteUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public DeleteUser() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -35,17 +26,13 @@ public class DeleteUser extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("delete user method called");
 		String userId = request.getParameter("userId");
 		doGet(request, response);
-		UserServiceImpl serviceobj = new UserServiceImpl();
+		UserService serviceobj = new UserServiceImpl();
 		try {
 			serviceobj.deleteUser(userId);
 		} catch (SQLException e) {

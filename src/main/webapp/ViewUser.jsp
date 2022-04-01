@@ -7,6 +7,9 @@
 <title>View User Data</title>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<!-- <link
+	href="https://cdn.datatables.net/responsive/2.2.9/css/dataTables.responsive.css"> -->
+
 <link
 	href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet"
@@ -88,7 +91,7 @@ input:checked+.slider:before {
 					<th>Contact</th>
 					<th>Gender</th>
 					<th>Hobby</th>
-					<th>Profile</th>
+					<th>Profile Picture</th>
 					<th>Date of Birth</th>
 					<th>Edit/Delete</th>
 					<th>Role</th>
@@ -102,7 +105,7 @@ input:checked+.slider:before {
 						<td>${user.userContact}</td>
 						<td>${user.userGender}</td>
 						<td>${user.userHobby}</td>
-						<td>${user.userProfile}</td>
+						<td><img src="data:image/jpg;base64,${user.base64Image}" width="100" height="100"></td>
 						<td>${user.userDOB}</td>
 						<td><a href="#"><i class="fa fa-pencil-square-o fa-lg "
 								aria-hidden="true"></i></a> &nbsp;&nbsp;<a id="${user.userId}"
@@ -123,9 +126,10 @@ input:checked+.slider:before {
 		</table>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<script
+ -->	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- 	<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
 	<script
 		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 	<script
@@ -137,7 +141,26 @@ input:checked+.slider:before {
  -->
 	<script>
 		$(document).ready(function() {
+		alert("ajax working");
+			$(".delete").on("click",function() {
 
+				var rowToDelete = this;
+				var userId = +this.id;
+				alert(userId);
+				$.ajax({
+					url : "DeleteUser",
+					type : "post",
+					data : ({
+						userId : userId,
+					}),
+					success : function(data) {
+						alert("sucess");
+						$(rowToDelete).closest('tr').fadeOut(100, function() {
+							$(this).remove();
+						});
+					}
+				});
+			});
 			$(".role_admin").on("change", function() {
 				//var id = $(this).val();
 				// var trid = $(this).closest('tr').attr('id'); // table row ID 
@@ -155,23 +178,6 @@ input:checked+.slider:before {
 				})
 			});
 
-			$(".delete").click(function() {
-
-				var rowToDelete = this;
-				var userId = +this.id;
-				$.ajax({
-					url : "DeleteUser",
-					type : "post",
-					data : ({
-						userId : userId,
-					}),
-					success : function(data) {
-						$(rowToDelete).closest('tr').fadeOut(100, function() {
-							$(this).remove();
-						});
-					}
-				});
-			});
 
 		});
 	</script>

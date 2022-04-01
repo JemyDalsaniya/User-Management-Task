@@ -1,3 +1,36 @@
+<%@ page import="controller.UserRegister"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+
+<%
+String username = request.getParameter("name");
+String useremail = request.getParameter("email");
+String userpassword = request.getParameter("password");
+String usercontact = request.getParameter("contact");
+String usergender = request.getParameter("gender");
+String hobbies = "";
+String[] userhobby = request.getParameterValues("options");
+
+if (username != null) {
+	session.setAttribute("name", username);
+}
+if (useremail != null) {
+	session.setAttribute("email", useremail);
+}
+if (userpassword != null) {
+	session.setAttribute("password", userpassword);
+}
+if (usercontact != null) {
+	session.setAttribute("contact", usercontact);
+}
+
+if (usergender != null) {
+	session.setAttribute("gender", usergender);
+}
+if (userhobby != null) {
+	session.setAttribute("hobby", userhobby);
+}
+%>
 <!DOCTYPE html>
 <html>
 
@@ -41,17 +74,20 @@
 <body class="bg-info bg_custom_color">
 	<div class="container">
 
-		<form action="UserRegister" method="Post" id="registration_form" >
+		<form action="UserRegister" method="Post" id="registration_form"
+			enctype="multipart/form-data">
 			<h3 style="text-align: center" class="margin_top_file">Registration
 				Form</h3>
 			<div class="row form-row">
 				<div class="col-md-6">
 
 					<div class="form-group">
-						<label for="img">Select image:</label><input type="file"
-							id="img" name="img" /> <img id="image_preview"
-							style="max-width: 170px; max-height: 170px;" /><br /> <span
-							id="image_error"></span>
+						<label for="img">Profile picture:</label><input type="file"
+							id="img" name="img" /><img
+							src="custom/image/default_profile.jpg" name="default_img"
+							style="width: 170px; height: 170px;"> <img
+							id="image_preview" style="max-width: 170px; max-height: 170px;" /><br />
+						<span id="image_error">${messages.profile}</span>
 					</div>
 
 				</div>
@@ -63,7 +99,7 @@
 					<div class="form-group">
 						<label for="fname">Full Name:</label> <input type="text"
 							class="form-control text-width" id="name" name="name"
-							placeholder="Enter your name" /> <span id="name_error"></span>
+							placeholder="Enter your name" /><span id="name_error">${messages.name}</span>
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -72,7 +108,7 @@
 					<div class="form-group">
 						<label>Contact No:</label> <input type="text" class="form-control"
 							id="contact" placeholder="Phone number" name="contact" /> <span
-							id="contact_error"></span>
+							id="contact_error">${messages.contact}</span>
 					</div>
 
 				</div>
@@ -84,7 +120,7 @@
 					<div class="form-group">
 						<label for="mail">Email:</label> <input type="text"
 							class="form-control text-width" id="mail" placeholder="Email-id"
-							name="email" /> <span id="email_error"></span>
+							name="email" /> <span id="email_error">${messages.email}</span>
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -92,7 +128,7 @@
 					<div class="form-group">
 						<label for="pwd">Password:</label> <input type="password"
 							class="form-control text-width" id="pwd" placeholder="Password"
-							name="password" /> <span id="password_error"></span>
+							name="password" /> <span id="password_error">${messages.password}</span>
 					</div>
 				</div>
 			</div>
@@ -108,7 +144,7 @@
 							name="gender" id="id1" value="female" /> Female
 						</label><br /> <label class="radio-inline radio-class"> <input
 							type="radio" name="gender" id="id2" value="male" /> Male
-						</label><br /> <span id="radio_error"></span>
+						</label><br /> <span id="radio_error">${messages.gender}</span>
 					</div>
 				</div>
 				<!-- confirm password -->
@@ -147,7 +183,7 @@
 						<input type="checkbox" class="form-check-input" id="check4"
 							name="options" value="Music"> <label
 							class="form-check-label">Music</label> <br /> <span
-							id="check_error"></span>
+							id="check_error">${messages.hobby}</span>
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -155,7 +191,7 @@
 					<div class="form-group">
 						<label for="fname">Date Of Birth:</label> <input type="date"
 							class="form-control text-width" id="dob" name="dob" /> <span
-							id="dob_error"></span>
+							id="dob_error">${messages.dob}</span>
 					</div>
 				</div>
 
@@ -181,7 +217,7 @@
 												<label class="control-label" for="address_line_one_0">Street</label>
 												<input type="text" id="street" class="form-control"
 													name="address[]" maxlength="255"> <span
-													id="street_error"></span>
+													id="street_error">${messages.street}</span>
 											</div>
 										</div>
 										<div class="col-sm-4">
@@ -189,7 +225,7 @@
 												<label class="control-label" for="address_line_two_0">Landmark</label>
 												<input type="text" id="landmark" class="form-control"
 													name="landmark[]" maxlength="255"> <span
-													id="landmark_error"></span>
+													id="landmark_error">${messages.landmark}</span>
 											</div>
 										</div>
 										<div class="col-sm-4">
@@ -197,7 +233,7 @@
 												<label class="control-label" for="address_line_two_0">Pincode</label>
 												<input type="text" id="pincode" class="form-control"
 													name="pincode[]" maxlength="255"> <span
-													id="pincode_error"></span>
+													id="pincode_error">${messages.pincode}</span>
 											</div>
 										</div>
 									</div>
@@ -213,7 +249,7 @@
 													<option value="Mumbai">Mumbai</option>
 													<option value="Surat">Surat</option>
 													<option value="Vadodara">Vadodara</option>
-												</select> <span id="city_error"></span>
+												</select> <span id="city_error">${messages.city}</span>
 
 											</div>
 										</div>
@@ -230,7 +266,7 @@
 													<option value="Assam">Assam</option>
 													<option value="Madhya Pradesh">Madhya Pradesh</option>
 													<option value="West Bengal">West Bengal</option>
-												</select> <span id="state_error"></span>
+												</select> <span id="state_error">${messages.state}</span>
 											</div>
 										</div>
 									</div>
@@ -301,6 +337,7 @@
 	<script src="custom/js/plugin.js" type="text/javascript"></script>
 	<script type="text/javascript" src="custom/js/validation.js"></script>
 	<script>
+		var count = 0;
 		$('a#add-more').cloneData({
 			mainContainerId : 'main-container', // Main container Should be ID
 			cloneContainer : 'container-item', // Which you want to clone
@@ -311,7 +348,10 @@
 			minLimit : 1, // Default 1 set minimum clone HTML required
 			/* 			maxLimit : 5, // Default unlimited or set maximum limit of clone HTML
 			 */
-			defaultRender : 1
+			defaultRender : 1,
+			afterRender: function() {
+                console.info(':: After rendered callback called'); // Return clone object
+            },
 		});
 	</script>
 	<jsp:include page="footer.jsp" />
@@ -319,5 +359,4 @@
 </body>
 </html>
 
-<!-- onclick="submitbtn()" -->
 

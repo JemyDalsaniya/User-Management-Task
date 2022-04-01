@@ -11,43 +11,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.User;
+import service.UserService;
 import service.UserServiceImpl;
 import utility.EncryptionFile;
 
-/**
- * Servlet implementation class Userlogin
- */
 public class Userlogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public Userlogin() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		UserService service = new UserServiceImpl();
 		System.out.println("inside user login");
 		User user = new User();
 		response.setContentType("text/html");
@@ -61,9 +47,7 @@ public class Userlogin extends HttpServlet {
 
 		user.setUserEmail(request.getParameter("email"));
 		user.setUserPassword(decrypt_pwd);
-//		user.setUserPassword(decrypt_pwd);
 
-		UserServiceImpl service = new UserServiceImpl();
 		boolean isValid = service.compareUserLogin(user);
 
 		if (isValid) {
@@ -85,12 +69,5 @@ public class Userlogin extends HttpServlet {
 				response.sendRedirect("UserHomePage.jsp");
 			}
 		}
-
-		/*
-		 * else { messages.put("error", "Enter valid EmailId and Password!!");
-		 * RequestDispatcher req = request.getRequestDispatcher("login.jsp");
-		 * req.include(request, response); }
-		 */
 	}
-
 }

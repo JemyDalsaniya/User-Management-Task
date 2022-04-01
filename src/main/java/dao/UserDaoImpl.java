@@ -1,17 +1,23 @@
 package dao;
 
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.logging.Logger;
 
 import model.Address;
 import model.User;
 import utility.MyConnection;
 
-public class UserDaoImpl implements UserDaoInterface {
+public class UserDaoImpl implements UserDao {
+
+	private static Logger logger = Logger.getLogger(UserDaoImpl.class.getName());
 
 	Connection conn;
 
@@ -54,11 +60,11 @@ public class UserDaoImpl implements UserDaoInterface {
 
 	// implementation of of user Registration
 	@Override
-	public int userRegister(User user) {
+	public int userRegister(User user, InputStream imgContent) {
 		int id = 0;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(
-					"insert into user(name,email,password,contact,gender,hobby,dob,isAdmin)values(?,?,?,?,?,?,?,0)");
+					"insert into user(name,email,password,contact,gender,hobby,dob,profile_img,isAdmin)values(?,?,?,?,?,?,?,?,0)");
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getUserEmail());
 			pstmt.setString(3, user.getUserPassword());
@@ -66,8 +72,8 @@ public class UserDaoImpl implements UserDaoInterface {
 			pstmt.setString(5, user.getUserGender());
 			pstmt.setString(6, user.getUserHobby());
 			pstmt.setString(7, user.getUserDOB());
-			// pstmt.setBlob(8, user.getUserProfile());
-			System.out.println("image inside user dao impl:" + user.getUserProfile());
+			pstmt.setBlob(8, imgContent);
+			System.out.println("image inside user dao impl:" + imgContent);
 
 			pstmt.executeUpdate();
 			PreparedStatement stmt = conn.prepareStatement("select user_id from user");
@@ -97,7 +103,14 @@ public class UserDaoImpl implements UserDaoInterface {
 			user.setUserContact(rs.getString("contact"));
 			user.setUserDOB(rs.getString("dob"));
 			user.setUserGender(rs.getString("gender"));
-			// user.setUserProfile(rs.getBlob("profile_img"));
+			Blob blob = rs.getBlob("profile_img");
+			System.out.println("img inside user dao impl" + rs.getBlob("profile_img"));
+
+			user.setUserProfileBlob(rs.getBlob("profile_img"));
+			byte[] photo = user.getUserProfileBlob().getBytes(1, (int) blob.length());
+			System.out.println(photo);
+			String base64Image = Base64.getEncoder().encodeToString(photo);
+			user.setBase64Image(base64Image);
 			user.setUserHobby(rs.getString("hobby"));
 			list.add(user);
 		}
@@ -128,7 +141,13 @@ public class UserDaoImpl implements UserDaoInterface {
 			user.setUserContact(rs.getString("contact"));
 			user.setUserDOB(rs.getString("dob"));
 			user.setUserGender(rs.getString("gender"));
-			// user.setUserProfile(rs.getBlob("profile_img"));
+			user.setUserProfileBlob(rs.getBlob("profile_img"));
+			Blob blob = rs.getBlob("profile_img");
+
+			user.setUserProfileBlob(rs.getBlob("profile_img"));
+			byte[] photo = user.getUserProfileBlob().getBytes(1, (int) blob.length());
+			String base64Image = Base64.getEncoder().encodeToString(photo);
+			user.setBase64Image(base64Image);
 			user.setUserHobby(rs.getString("hobby"));
 			list.add(user);
 		}

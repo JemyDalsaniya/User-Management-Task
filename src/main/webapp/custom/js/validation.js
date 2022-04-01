@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+	var count = 0;
 	$("#name_error").hide();
 	$("#email_error").hide();
 	$("#password_error").hide();
@@ -29,6 +30,7 @@ $(document).ready(function() {
 	var city_error = false;
 	var state_error = false;
 	var dob_error = false;
+	var selector;
 
 
 
@@ -230,7 +232,7 @@ $(document).ready(function() {
 		var password = $("#pwd").val();
 		var retype_password = $("#cpwd").val();
 		if (retype_password === '') {
-			$("#confirm_password_error").html("confirm password can not be null!!").css("color", "red");
+			$("#confirm_password_error").html("confirm password can not be empty!!").css("color", "red");
 			$("#confirm_password_error").show();
 			$("#cpwd").css("border-bottom", "4px solid #F90A0A");
 			confirm_password_error = true;
@@ -302,6 +304,7 @@ $(document).ready(function() {
 		console.log("inside check file", $("#img").val());
 		var file = $("#img").val();
 		if (file === '') {
+
 			$("#image_error").html("Please select file!!").css("color", "red");;
 			$("#image_error").show();
 			image_error = true;
@@ -311,7 +314,7 @@ $(document).ready(function() {
 			var fileType = file.split('.').pop().toLowerCase();
 			//var validImageTypes = ["image/jpeg", "image/png", "image/jpg", "image/JPG", "image/JPEG", "image/PNG"];
 			//console.log($.inArray(fileType, validImageTypes) == -1);
-			if ($.inArray(fileType, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+			if ($.inArray(fileType, ['png', 'jpg', 'jpeg']) == -1) {
 				$("#image_error").html("Please select valid file!!").css("color", "red");;
 				$("#image_error").show();
 				image_error = true;
@@ -323,7 +326,7 @@ $(document).ready(function() {
 		if (input.files && input.files[0]) {
 			var file = new FileReader();
 			file.onload = function(e) {
-				$("#image_preview").attr('src', e.target.result).css({"max-width": "170px" });
+				$("#image_preview").attr('src', e.target.result).css({ "max-width": "170px" });
 			}
 			file.readAsDataURL(input.files[0]);
 		}
@@ -344,71 +347,83 @@ $(document).ready(function() {
 
 
 
+
+	function checkAllAddress() {
+		for (var i = 0; i < $(".container-item").length; i++) {
+			var selector = `.container-item[data-index="${i}"]`;
+
+			check_street(selector);
+			check_landmark(selector);
+			check_pincode(selector);
+			check_city(selector);
+			check_state(selector);
+
+		}
+	}
 	// validation for pincode
-	function check_pincode() {
+	function check_pincode(selector) {
 		var pattern = /^[0-9]+$/;
-		var pincode = $("#pincode").val();
+		var pincode = $(selector + " #pincode").val();
 		if (pincode.length == 0) {
-			$("#pincode_error").html("pincode can not be empty!!").css("color", "red");;
-			$("#pincode_error").show();
-			$("#pincode").css("border-bottom", "4px solid #F90A0A");
+			$(selector + " #pincode_error").html("pincode can not be empty!!").css("color", "red");;
+			$(selector + " #pincode_error").show();
+			$(selector + " #pincode").css("border-bottom", "4px solid #F90A0A");
 			pincode_error = true;
 		} else if (!pattern.test(pincode)) {
-			$("#pincode_error").html("Pincode contain only numbers").css("color", "red");;
-			$("#pincode_error").show();
-			$("#pincode").css("border-bottom", "4px solid #F90A0A");
+			$(selector + " #pincode_error").html("Pincode contain only numbers").css("color", "red");;
+			$(selector + " #pincode_error").show();
+			$(selector + " #pincode").css("border-bottom", "4px solid #F90A0A");
 			pincode_error = true;
 		} else {
-			$("#pincode_error").hide();
-			$("#pincode").css("border-bottom", "4px solid #34F458");
+			$(selector + " #pincode_error").hide();
+			$(selector + " #pincode").css("border-bottom", "4px solid #34F458");
 		}
 	}
 
-	function check_landmark() {
-		var landmark = $("#landmark").val();
+
+
+	function check_landmark(selector) {
+		var landmark = $(selector + " #landmark").val();
 		if (landmark.length == 0) {
-			$("#landmark_error").html("landmark can not be empty!!").css("color", "red");;
-			$("#landmark_error").show();
-			$("#landmark").css("border-bottom", "4px solid #F90A0A");
+			$(selector + " #landmark_error").html("landmark can not be empty!!").css("color", "red");;
+			$(selector + " #landmark_error").show();
+			$(selector + " #landmark").css("border-bottom", "4px solid #F90A0A");
 			landmark_error = true;
 		} else {
-			$("#landmark_error").hide();
-			$("#landmark").css("border-bottom", "4px solid #34F458");
+			$(selector + " #landmark_error").hide();
+			$(selector + " #landmark").css("border-bottom", "4px solid #34F458");
 		}
 	}
-
-	function check_street() {
-		var street = $("#street").val();
+	function check_street(selector) {
+		var street = $(selector + " #street").val();
 		if (street.length == 0) {
-			$("#street_error").html("Street can not be empty!!").css("color", "red");;
-			$("#street_error").show();
-			$("#street").css("border-bottom", "4px solid #F90A0A");
+			$(selector + " #street_error").html("Street can not be empty!!").css("color", "red");;
+			$(selector + " #street_error").show();
+			$(selector + " #street").css("border-bottom", "4px solid #F90A0A");
 			street_error = true;
 		} else {
-			$("#street_error").hide();
-			$("#street").css("border-bottom", "4px solid #34F458");
+			$(selector + " #street_error").hide();
+			$(selector + " #street").css("border-bottom", "4px solid #34F458");
 		}
 	}
-
-	function check_state() {
-		var state = $("#state").val();
+	function check_state(selector) {
+		var state = $(selector + " #state").val();
 		if (state == "0") {
-			$("#state_error").html("Please select State!!").css("color", "red");
-			$("#state_error").show();
+			$(selector + " #state_error").html("Please select State!!").css("color", "red");
+			$(selector + " #state_error").show();
 			state_error = true;
 		} else {
-			$("#state_error").hide();
+			$(selector + " #state_error").hide();
 		}
 	}
-
-	function check_city() {
-		var city = $("#city").val();
+	function check_city(selector) {
+		var city = $(selector + " #city").val();
 		if (city == "0") {
-			$("#city_error").html("Please select City!!").css("color", "red");
-			$("#city_error").show();
+			$(selector + " #city_error").html("Please select City!!").css("color", "red");
+			$(selector + " #city_error").show();
 			city_error = true;
 		} else {
-			$("#city_error").hide();
+			$(selector + " #city_error").hide();
 		}
 	}
 
@@ -438,11 +453,12 @@ $(document).ready(function() {
 		check_radio();
 		check_checkbox();
 		check_file();
-		check_pincode();
-		check_landmark();
-		check_street();
-		check_city();
-		check_state();
+		checkAllAddress();
+		//check_pincode();
+		//check_landmark();
+		//check_street();
+		//check_city();
+		//check_state();
 		check_date();
 
 		if (name_error === false && email_error === false && password_error === false && confirm_password_error === false && contact_error === false &&

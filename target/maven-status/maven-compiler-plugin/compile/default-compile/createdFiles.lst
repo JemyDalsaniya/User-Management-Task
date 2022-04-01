@@ -1,9 +1,9 @@
 dao\UserDaoImpl.class
-dao\UserDaoInterface.class
+service\UserService.class
+dao\UserDao.class
 controller\ForgetPasswordServlet.class
 controller\ViewUserDetails.class
 model\Address.class
-service\UserServiceDao.class
 controller\Userlogin.class
 controller\DeleteUser.class
 utility\MyConnection.class

@@ -1,16 +1,19 @@
 package service;
 
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import dao.UserDao;
 import dao.UserDaoImpl;
 import model.Address;
 import model.User;
 
-public class UserServiceImpl implements UserServiceDao {
+public class UserServiceImpl implements UserService {
 
-	UserDaoImpl object = new UserDaoImpl();
+	UserDao object = new UserDaoImpl();
+	// UserDaoImpl object = new UserDaoImpl();
 
 	// method of userDaoImpl called..
 	@Override
@@ -21,16 +24,13 @@ public class UserServiceImpl implements UserServiceDao {
 
 	// method of userDaoImpl called..
 	@Override
-	public int userRegister(User user) {
+	public int userRegister(User user, InputStream imgContent) {
 		// TODO Auto-generated method stub
-		int id = object.userRegister(user);
+		// userdao.userRegister(user, imgContent);
+		// int id = object.userRegister(user, imgContent);
+		// return i;
+		int id = object.userRegister(user, imgContent);
 		return id;
-	}
-
-	@Override
-	public void validateUserDetails(User user, Map<String, String> messages) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -72,30 +72,44 @@ public class UserServiceImpl implements UserServiceDao {
 
 	@Override
 	public int addAddress(int userId, Address address) {
+		System.out.println("add address method called inside user service impl..");
 		int obj = object.addAddress(userId, address);
 		return obj;
 	}
 
+	@Override
+	public void validateUserDetails(User user, Map<String, String> messages) {
+		// TODO Auto-generated method stub
+
+	}
+
+//	@Override
 //	public void validateUserDetails(User user, Map<String, String> messages) {
 //		// TODO Auto-generated method stub
 //
 //		if (user.getUserName() == null || user.getUserName().trim().isEmpty()) {
 //			messages.put("name", "Please enter Name!!");
-//		} else if (!user.getUserName().matches("^[a-zA-Z\\s]*$")) {
+//		} else if (!user.getUserName().matches("^[a-zA-Z\\s]+$")) {
 //			messages.put("name", "Please enter alphabets only!!");
 //		}
 //
 //		if (user.getUserEmail() == null || user.getUserEmail().trim().isEmpty()) {
 //			messages.put("email", "Please enter Email!!");
-//		} else if (!user.getUserEmail().matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
+//		} else if (!user.getUserEmail().matches("^([\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4})?$")) {
 //			messages.put("email", "Please enter valid emailId!!");
 //		}
 //
 //		if (user.getUserPassword() == null || user.getUserPassword().trim().isEmpty()) {
 //			messages.put("password", "Please enter password!!");
-//		} else if (!user.getUserPassword()
-//				.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8,20}$")) {
-//			messages.put("password", "Please enter valid password!!");
+//		}
+//
+//		if (!user.getUserGender().equals("male") && !user.getUserGender().equals("female")) {
+//			messages.put("gender", "Please select gender!!");
+//		}
+//
+//		if (user.getUserHobby() == null && user.getUserHobby().length() == 0) {
+//			messages.put("hobby", "Please select Hobby!!");
+//
 //		}
 //
 //		if (user.getUserContact() == null || user.getUserContact().trim().isEmpty()) {
