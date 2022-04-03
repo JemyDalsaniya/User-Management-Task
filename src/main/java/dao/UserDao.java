@@ -1,13 +1,11 @@
-package service;
+package dao;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
-import model.Address;
 import model.User;
 
-public interface UserServiceDao {
+public interface UserDao {
 
 	/**
 	 * 
@@ -19,15 +17,9 @@ public interface UserServiceDao {
 	/**
 	 * 
 	 * @param user
+	 * @return
 	 */
 	public int userRegister(User user);
-
-	/**
-	 * 
-	 * @param user
-	 * @param messages
-	 */
-	public void validateUserDetails(User user, Map<String, String> messages);
 
 	/**
 	 * 
@@ -63,8 +55,16 @@ public interface UserServiceDao {
 	 * 
 	 * @throws SQLException
 	 */
-	public void changeRole(User user) throws SQLException;
+	public void changeRole(String id) throws SQLException;
 
-	public int addAddress(int userId, Address address);
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<User> displaySpecificUser(User user) throws SQLException;
+
+	public void updateProfile(User user);
 
 }

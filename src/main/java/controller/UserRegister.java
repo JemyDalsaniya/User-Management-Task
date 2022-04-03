@@ -1,8 +1,12 @@
 package controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -11,26 +15,23 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import model.Address;
 import model.User;
+import service.AddressService;
+import service.AddressServiceImpl;
+import service.UserService;
 import service.UserServiceImpl;
 import utility.EncryptionFile;
 import utility.MyConnection;
 
-/**
- * Servlet implementation class UserRegister
- */
-@MultipartConfig(maxFileSize = 16177216)
+@MultipartConfig
 public class UserRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public UserRegister() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	Connection conn;
@@ -45,33 +46,39 @@ public class UserRegister extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		doPost(request, response);
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		UserService service = new UserServiceImpl();
+		AddressService addservice = new AddressServiceImpl();
 		User user = new User();
+		Map<String, String> messages = new HashMap<String, String>();
+		request.setAttribute("messages", messages);
 
 		EncryptionFile ee = null;
 		try {
 			ee = new EncryptionFile();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		Part file = request.getPart("img");
+		System.out.println("val file:" + file.getSize());
+		if (file.getSize() == 0) {
+
+			InputStream fis = new FileInputStream("C:/Users/JEMMY/Desktop/default_profile.jpg");
+			System.out.println("value fis:" + fis);
+			user.setUserProfile(fis);
+		} else {
+			InputStream imgContent = file.getInputStream();
+			user.setUserProfile(imgContent);
 		}
 
 		user.setUserName(request.getParameter("name"));
@@ -89,9 +96,7 @@ public class UserRegister extends HttpServlet {
 
 		String encrypt_pwd = ee.encrypt(request.getParameter("password"));
 		user.setUserPassword(encrypt_pwd);
-
-		UserServiceImpl obj = new UserServiceImpl();
-		int id = obj.userRegister(user);
+		int id = service.userRegister(user);
 
 		String[] street = request.getParameterValues("address[]");
 		String[] landmark = request.getParameterValues("landmark[]");
@@ -102,19 +107,17 @@ public class UserRegister extends HttpServlet {
 		int count = 0;
 		while (count < street.length) {
 			Address addobj = new Address();
+			// addobj.setAddUserID();
 			addobj.setAddStreet(street[count]);
 			addobj.setAddLandmark(landmark[count]);
 			addobj.setAddCity(city[count]);
 			addobj.setAddState(state[count]);
 			addobj.setAddPincode(pincode[count]);
 
-			obj.addAddress(id, addobj);
+			addservice.addAddress(id, addobj);
 			count++;
 		}
-
 		RequestDispatcher req = request.getRequestDispatcher("/Userlogin.jsp");
 		req.forward(request, response);
-
 	}
-
 }

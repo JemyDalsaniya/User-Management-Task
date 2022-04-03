@@ -18,12 +18,6 @@
     <display-name>UserRegister</display-name>
     <servlet-name>UserRegister</servlet-name>
     <servlet-class>controller.UserRegister</servlet-class>
-    <multipart-config>
-      <location>/tmp</location>
-      <max-file-size>20848820</max-file-size>
-      <max-request-size>418018841</max-request-size>
-      <file-size-threshold>1048576</file-size-threshold>
-    </multipart-config>
   </servlet>
   <servlet-mapping>
     <servlet-name>UserRegister</servlet-name>
@@ -68,5 +62,35 @@
   <servlet-mapping>
     <servlet-name>ChangeRole</servlet-name>
     <url-pattern>/ChangeRole</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddressDao</display-name>
+    <servlet-name>AddressDao</servlet-name>
+    <servlet-class>dao.AddressDao</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddressDao</servlet-name>
+    <url-pattern>/AddressDao</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DisplaySpecificUser</display-name>
+    <servlet-name>DisplaySpecificUser</servlet-name>
+    <servlet-class>controller.DisplaySpecificUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DisplaySpecificUser</servlet-name>
+    <url-pattern>/DisplaySpecificUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateProfile</display-name>
+    <servlet-name>UpdateProfile</servlet-name>
+    <servlet-class>controller.UpdateProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateProfile</servlet-name>
+    <url-pattern>/UpdateProfile</url-pattern>
   </servlet-mapping>
 </web-app>

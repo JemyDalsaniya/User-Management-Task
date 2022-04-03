@@ -1,5 +1,8 @@
 @charset "ISO-8859-1";
 
+body {
+	color:white;
+}
 .footer_margin {
 	position: fixed;
 	bottom: 0;

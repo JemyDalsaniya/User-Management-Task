@@ -19,6 +19,7 @@
 
 <body class="bg_custom_color">
 
+
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -34,47 +35,52 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="UserRegister.jsp">Edit Profile<span
+					<li><a href="UserRegister.jsp?profile=update">Edit Profile<span
 							class="sr-only">(current)</span></a>
 					<li><a href="ViewUserDetails">View User<span
 							class="sr-only">(current)</span></a>
-					<li><a href="#">Add User<span class="sr-only">(current)</span></a>
+					<li><a href="UserRegister.jsp">Add User<span
+							class="sr-only">(current)</span></a>
 				</ul>
+				<a class="navbar-brand content-center">User Management System</a>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="Userlogin.jsp">Logout</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-		<div class="container">
+	<div class="container">
 		<table id="example"
-		class="table table-striped table-bordered table_css">
-		<thead>
-			<tr><th colspan="7" style="text-align:center">Admin Details</th></tr>
-			<tr>
-				<th>Name</th>
-				<th>Email</th>
-				<th>Contact</th>
-				<th>Gender</th>
-				<th>Hobby</th>
-				<th>Profile</th>
-				<th>Date of Birth</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="admin" items="${adminList}">
+			class="table table-striped table-bordered table_css">
+			<thead>
 				<tr>
-					<td>${admin.userName}</td>
-					<td>${admin.userEmail}</td>
-					<td>${admin.userContact}</td>
-					<td>${admin.userGender}</td>
-					<td>${admin.userHobby}</td>
-					<td>${admin.userProfile}</td>
-					<td>${admin.userDOB}</td>
+					<th colspan="7" style="text-align: center">Admin Details</th>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Contact</th>
+					<th>Gender</th>
+					<th>Hobby</th>
+					<th>Profile</th>
+					<th>Date of Birth</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="admin" items="${adminList}">
+					<tr>
+						<td>${admin.userName}</td>
+						<td>${admin.userEmail}</td>
+						<td>${admin.userContact}</td>
+						<td>${admin.userGender}</td>
+						<td>${admin.userHobby}</td>
+						<td><img src="data:image/jpg;base64,${admin.base64Image}"
+							width="100" height="100"></td>
+						<td>${admin.userDOB}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script
@@ -86,6 +92,16 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 	<script src="custom/js/datatable.js"></script>
+	<script>
+		$(document).ready(
+				function() {
+					$('#example').DataTable(
+							{
+								"lengthMenu" : [ [ 3, 5, 7, 10, "All" ],
+										[ 3, 5, 7, 10, "All" ] ]
+							});
+				});
+	</script>
 
 	<jsp:include page="footer.jsp" />
 
