@@ -1,6 +1,5 @@
 package dao;
 
-import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +10,6 @@ import java.util.Base64;
 import java.util.List;
 import java.util.logging.Logger;
 
-import model.Address;
 import model.User;
 import utility.MyConnection;
 
@@ -33,6 +31,7 @@ public class UserDaoImpl implements UserDao {
 	// implementation of user login
 	@Override
 	public boolean compareUserLogin(User user) {
+		logger.info("User Data" + user.toString());
 		try {
 			PreparedStatement pstmt = conn.prepareStatement("select * from user where email=? and password = ?");
 			pstmt.setString(1, user.getUserEmail());
@@ -41,12 +40,18 @@ public class UserDaoImpl implements UserDao {
 			if (rs.next()) {
 				boolean status = rs.getBoolean(10);
 				user.setUserStatus(status);
-				user.setUserId(rs.getInt(1));
-				user.setUserName(rs.getString(2));
-				user.setUserPassword(rs.getString(4));
-				user.setUserContact(rs.getString(5));
-				user.setUserGender(rs.getString(6));
-				user.setUserHobby(rs.getString(7));
+				user.setUserId(rs.getInt("user_id"));
+				user.setUserName(rs.getString("name"));
+				user.setUserPassword(rs.getString("password"));
+				user.setUserContact(rs.getString("contact"));
+				user.setUserGender(rs.getString("gender"));
+				user.setUserHobby(rs.getString("hobby"));
+				user.setUserDOB(rs.getString("dob"));
+				Blob blob = rs.getBlob("profile_img");
+
+				byte[] photo = blob.getBytes(1, (int) blob.length());
+				String base64Image = Base64.getEncoder().encodeToString(photo);
+				user.setBase64Image(base64Image);
 
 				return true;
 			} else {
@@ -60,7 +65,7 @@ public class UserDaoImpl implements UserDao {
 
 	// implementation of of user Registration
 	@Override
-	public int userRegister(User user, InputStream imgContent) {
+	public int userRegister(User user) {
 		int id = 0;
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(
@@ -72,8 +77,7 @@ public class UserDaoImpl implements UserDao {
 			pstmt.setString(5, user.getUserGender());
 			pstmt.setString(6, user.getUserHobby());
 			pstmt.setString(7, user.getUserDOB());
-			pstmt.setBlob(8, imgContent);
-			System.out.println("image inside user dao impl:" + imgContent);
+			pstmt.setBlob(8, user.getUserProfile());
 
 			pstmt.executeUpdate();
 			PreparedStatement stmt = conn.prepareStatement("select user_id from user");
@@ -92,8 +96,10 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<User> displayUser(User user) throws SQLException {
 		// TODO Auto-generated method stub
+
 		List<User> list = new ArrayList<User>();
 		PreparedStatement pstmt = conn.prepareStatement("select * from user where isAdmin=0");
+		logger.info("User Data" + user.toString());
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			user = new User();
@@ -103,15 +109,12 @@ public class UserDaoImpl implements UserDao {
 			user.setUserContact(rs.getString("contact"));
 			user.setUserDOB(rs.getString("dob"));
 			user.setUserGender(rs.getString("gender"));
+			user.setUserHobby(rs.getString("hobby"));
 			Blob blob = rs.getBlob("profile_img");
-			System.out.println("img inside user dao impl" + rs.getBlob("profile_img"));
 
-			user.setUserProfileBlob(rs.getBlob("profile_img"));
-			byte[] photo = user.getUserProfileBlob().getBytes(1, (int) blob.length());
-			System.out.println(photo);
+			byte[] photo = blob.getBytes(1, (int) blob.length());
 			String base64Image = Base64.getEncoder().encodeToString(photo);
 			user.setBase64Image(base64Image);
-			user.setUserHobby(rs.getString("hobby"));
 			list.add(user);
 		}
 
@@ -129,9 +132,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<User> displayAdmin(User user) throws SQLException {
-		// TODO Auto-generated method stub
 		List<User> list = new ArrayList<User>();
 		PreparedStatement pstmt = conn.prepareStatement("select * from user where isAdmin=1");
+		logger.info("User Data" + user.toString());
 		ResultSet rs = pstmt.executeQuery();
 		while (rs.next()) {
 			user = new User();
@@ -141,14 +144,12 @@ public class UserDaoImpl implements UserDao {
 			user.setUserContact(rs.getString("contact"));
 			user.setUserDOB(rs.getString("dob"));
 			user.setUserGender(rs.getString("gender"));
-			user.setUserProfileBlob(rs.getBlob("profile_img"));
+			user.setUserHobby(rs.getString("hobby"));
 			Blob blob = rs.getBlob("profile_img");
 
-			user.setUserProfileBlob(rs.getBlob("profile_img"));
-			byte[] photo = user.getUserProfileBlob().getBytes(1, (int) blob.length());
+			byte[] photo = blob.getBytes(1, (int) blob.length());
 			String base64Image = Base64.getEncoder().encodeToString(photo);
 			user.setBase64Image(base64Image);
-			user.setUserHobby(rs.getString("hobby"));
 			list.add(user);
 		}
 
@@ -157,7 +158,6 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void updatePassword(User user) throws SQLException {
-		// TODO Auto-generated method stub
 		PreparedStatement pstmt = conn.prepareStatement("UPDATE user SET password =? WHERE email = ?");
 		pstmt.setString(1, user.getUserPassword());
 		pstmt.setString(2, user.getUserEmail());
@@ -170,39 +170,62 @@ public class UserDaoImpl implements UserDao {
 	public void changeRole(String id) throws SQLException {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmt = conn.prepareStatement("UPDATE user SET isAdmin = 1 WHERE user_id = ?");
-		// pstmt.setBoolean(1, user.getUserStatus());
-//		pstmt.setInt(1, id.getUserId());
-		// System.out.println("status" + id.getUserStatus());
-		// System.out.println("id inside dao impl " + id.getUserId());
 		pstmt.setString(1, id);
 		pstmt.executeUpdate();
 
 	}
 
-	// Add address in database
 	@Override
-	public int addAddress(int userId, Address address) {
-		int count = 0;
+	public List<User> displaySpecificUser(User user) throws SQLException {
+
+		List<User> list = new ArrayList<User>();
+
+		PreparedStatement pstmt = conn.prepareStatement("select * from user where email= ? and password = ?");
+		pstmt.setString(1, user.getUserEmail());
+		pstmt.setString(2, user.getUserPassword());
+		ResultSet rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			user = new User();
+			user.setUserId(rs.getInt("user_id"));
+			user.setUserName(rs.getString("name"));
+			user.setUserEmail(rs.getString("email"));
+			user.setUserContact(rs.getString("contact"));
+			user.setUserDOB(rs.getString("dob"));
+			user.setUserGender(rs.getString("gender"));
+			Blob blob = rs.getBlob("profile_img");
+
+			byte[] photo = blob.getBytes(1, (int) blob.length());
+			String base64Image = Base64.getEncoder().encodeToString(photo);
+			user.setBase64Image(base64Image);
+			user.setUserHobby(rs.getString("hobby"));
+			list.add(user);
+		}
+
+		return list;
+	}
+
+	@Override
+	public void updateProfile(User user) {
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(
-					"insert into address(street,landmark,pincode,city,state,user_id) values(?,?,?,?,?,?)");
+					"UPDATE user SET name = ?,email=?,contact =?,gender=?,hobby=?,dob=?,profile_img=? WHERE user_id = ?");
 
-			pstmt.setString(1, address.getAddStreet());
-			pstmt.setString(2, address.getAddLandmark());
-			pstmt.setString(3, address.getAddPincode());
-			pstmt.setString(4, address.getAddCity());
-			pstmt.setString(5, address.getAddState());
-			pstmt.setInt(6, userId);
-			count = pstmt.executeUpdate();
-			System.out.println("count of address updated rows   " + count);
-			if (count != 0) {
-				return count;
-			}
+			pstmt.setString(1, user.getUserName());
+			pstmt.setString(2, user.getUserEmail());
+			pstmt.setString(3, user.getUserContact());
+			pstmt.setString(4, user.getUserGender());
+			pstmt.setString(5, user.getUserHobby());
+			pstmt.setString(6, user.getUserDOB());
+			pstmt.setBlob(7, user.getUserProfile());
+			pstmt.setInt(8, user.getUserId());
+
+			pstmt.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return 0;
 
 	}
 

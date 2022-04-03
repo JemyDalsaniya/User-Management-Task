@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%
+<%-- <%
 String username = request.getParameter("name");
 String useremail = request.getParameter("email");
 String userpassword = request.getParameter("password");
@@ -30,7 +30,7 @@ if (usergender != null) {
 if (userhobby != null) {
 	session.setAttribute("hobby", userhobby);
 }
-%>
+%> --%>
 <!DOCTYPE html>
 <html>
 
@@ -83,9 +83,9 @@ if (userhobby != null) {
 
 					<div class="form-group">
 						<label for="img">Profile picture:</label><input type="file"
-							id="img" name="img" /><img
-							src="custom/image/default_profile.jpg" name="default_img"
-							style="width: 170px; height: 170px;"> <img
+							id="img" name="img" />
+							<img src="custom/image/default_profile.jpg" name="default_img"
+							style="width: 170px; height: 170px;" id="default_img"> <img
 							id="image_preview" style="max-width: 170px; max-height: 170px;" /><br />
 						<span id="image_error">${messages.profile}</span>
 					</div>
@@ -291,11 +291,9 @@ if (userhobby != null) {
 								Add address</a>
 						</div>
 					</div>
-					<!-- 					</form>
- -->
+										
 				</div>
 			</div>
-
 
 			<div class="row btn-margin form-row">
 				<div class="col-sm-1  submit_btn">
@@ -336,8 +334,7 @@ if (userhobby != null) {
 	<script src="https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
 	<script src="custom/js/plugin.js" type="text/javascript"></script>
 	<script type="text/javascript" src="custom/js/validation.js"></script>
-	<script>
-		var count = 0;
+	<!-- <script>
 		$('a#add-more').cloneData({
 			mainContainerId : 'main-container', // Main container Should be ID
 			cloneContainer : 'container-item', // Which you want to clone
@@ -354,7 +351,7 @@ if (userhobby != null) {
             },
 		});
 	</script>
-	<jsp:include page="footer.jsp" />
+ -->	<jsp:include page="footer.jsp" />
 
 </body>
 </html>

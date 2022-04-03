@@ -1,11 +1,14 @@
 package model;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
-import java.sql.Blob;
+
+import com.mysql.cj.result.BinaryStreamValueFactory;
 
 public class User {
 
 	private int userId;
+
 	private String userName;
 	private String userEmail;
 	private String userPassword;
@@ -14,9 +17,19 @@ public class User {
 	private String userHobby;
 	private String userDOB;
 	private InputStream userProfile;
-	private Blob userProfileBlob;
+	// private Blob userProfileBlob;
+	private FileInputStream defaultProfile;
 	private Boolean userStatus;
 	private String base64Image;
+	private BinaryStreamValueFactory defaultProfileImage;
+
+//	public Blob getUserProfileBlob() {
+//	return userProfileBlob;
+//}
+//
+//public void setUserProfileBlob(Blob userProfileBlob) {
+//	this.userProfileBlob = userProfileBlob;
+//}
 
 	public int getUserId() {
 		return userId;
@@ -90,12 +103,12 @@ public class User {
 		this.userProfile = userProfile;
 	}
 
-	public Blob getUserProfileBlob() {
-		return userProfileBlob;
+	public FileInputStream getDefaultProfile() {
+		return defaultProfile;
 	}
 
-	public void setUserProfileBlob(Blob userProfileBlob) {
-		this.userProfileBlob = userProfileBlob;
+	public void setDefaultProfile(FileInputStream defaultProfile) {
+		this.defaultProfile = defaultProfile;
 	}
 
 	public Boolean getUserStatus() {
@@ -112,6 +125,22 @@ public class User {
 
 	public void setBase64Image(String base64Image) {
 		this.base64Image = base64Image;
+	}
+
+	public BinaryStreamValueFactory getDefaultProfileImage() {
+		return defaultProfileImage;
+	}
+
+	public void setDefaultProfileImage(BinaryStreamValueFactory defaultProfileImage) {
+		this.defaultProfileImage = defaultProfileImage;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userPassword="
+				+ userPassword + ", userContact=" + userContact + ", userGender=" + userGender + ", userHobby="
+				+ userHobby + ", userDOB=" + userDOB + ", userProfile=" + userProfile + ", userStatus=" + userStatus
+				+ "]";
 	}
 
 }

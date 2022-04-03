@@ -1,10 +1,8 @@
 package dao;
 
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
-import model.Address;
 import model.User;
 
 public interface UserDao {
@@ -21,7 +19,7 @@ public interface UserDao {
 	 * @param user
 	 * @return
 	 */
-	public int userRegister(User user, InputStream imgContent);
+	public int userRegister(User user);
 
 	/**
 	 * 
@@ -61,10 +59,12 @@ public interface UserDao {
 
 	/**
 	 * 
-	 * @param userId
-	 * @param address
+	 * @param user
 	 * @return
+	 * @throws SQLException
 	 */
-	public int addAddress(int userId, Address address);
+	public List<User> displaySpecificUser(User user) throws SQLException;
+
+	public void updateProfile(User user);
 
 }

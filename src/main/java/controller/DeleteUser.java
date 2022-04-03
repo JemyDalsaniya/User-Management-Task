@@ -29,7 +29,6 @@ public class DeleteUser extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("delete user method called");
 		String userId = request.getParameter("userId");
 		doGet(request, response);
 		UserService serviceobj = new UserServiceImpl();

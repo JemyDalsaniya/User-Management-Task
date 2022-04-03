@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -18,6 +19,8 @@ import javax.servlet.http.Part;
 
 import model.Address;
 import model.User;
+import service.AddressService;
+import service.AddressServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
 import utility.EncryptionFile;
@@ -55,6 +58,7 @@ public class UserRegister extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		UserService service = new UserServiceImpl();
+		AddressService addservice = new AddressServiceImpl();
 		User user = new User();
 		Map<String, String> messages = new HashMap<String, String>();
 		request.setAttribute("messages", messages);
@@ -66,17 +70,16 @@ public class UserRegister extends HttpServlet {
 			e.printStackTrace();
 		}
 		Part file = request.getPart("img");
-		InputStream imgContent = file.getInputStream();
-		user.setUserProfile(imgContent);
+		System.out.println("val file:" + file.getSize());
+		if (file.getSize() == 0) {
 
-//		if (file == null) {
-//			Part default_file = request.getPart("default_img");
-//			InputStream default_imgContent = default_file.getInputStream();
-//			user.setUserProfile(default_imgContent);
-//		} else {
-//			InputStream imgContent = file.getInputStream();
-//			user.setUserProfile(imgContent);
-//		}
+			InputStream fis = new FileInputStream("C:/Users/JEMMY/Desktop/default_profile.jpg");
+			System.out.println("value fis:" + fis);
+			user.setUserProfile(fis);
+		} else {
+			InputStream imgContent = file.getInputStream();
+			user.setUserProfile(imgContent);
+		}
 
 		user.setUserName(request.getParameter("name"));
 		user.setUserEmail(request.getParameter("email"));
@@ -93,7 +96,7 @@ public class UserRegister extends HttpServlet {
 
 		String encrypt_pwd = ee.encrypt(request.getParameter("password"));
 		user.setUserPassword(encrypt_pwd);
-		int id = service.userRegister(user, imgContent);
+		int id = service.userRegister(user);
 
 		String[] street = request.getParameterValues("address[]");
 		String[] landmark = request.getParameterValues("landmark[]");
@@ -111,15 +114,10 @@ public class UserRegister extends HttpServlet {
 			addobj.setAddState(state[count]);
 			addobj.setAddPincode(pincode[count]);
 
-			service.addAddress(id, addobj);
+			addservice.addAddress(id, addobj);
 			count++;
 		}
-
 		RequestDispatcher req = request.getRequestDispatcher("/Userlogin.jsp");
 		req.forward(request, response);
-
 	}
-
 }
-//System.out.println("what file contains  " + file);
-//System.out.println("imgContent" + imgContent);

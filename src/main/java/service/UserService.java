@@ -1,11 +1,9 @@
 package service;
 
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import model.Address;
 import model.User;
 
 public interface UserService {
@@ -21,7 +19,7 @@ public interface UserService {
 	 * 
 	 * @param user
 	 */
-	public int userRegister(User user, InputStream imgContent);
+	public int userRegister(User user);
 
 	/**
 	 * 
@@ -68,10 +66,12 @@ public interface UserService {
 
 	/**
 	 * 
-	 * @param userId
-	 * @param address
+	 * @param user
 	 * @return
+	 * @throws SQLException
 	 */
-	public int addAddress(int userId, Address address);
+	public List<User> displaySpecificUser(User user) throws SQLException;
+
+	public void updateProfile(User user);
 
 }

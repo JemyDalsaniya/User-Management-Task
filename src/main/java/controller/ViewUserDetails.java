@@ -40,7 +40,6 @@ public class ViewUserDetails extends HttpServlet {
 
 		try {
 			List<User> list = serviceobj.displayUser(user);
-			System.out.println(list);
 			HttpSession session = request.getSession();
 			session.setAttribute("userList", list);
 			RequestDispatcher req = request.getRequestDispatcher("ViewUser.jsp");

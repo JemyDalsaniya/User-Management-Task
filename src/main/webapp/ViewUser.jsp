@@ -80,11 +80,36 @@ input:checked+.slider:before {
 
 </head>
 <body class="all_page_background">
-	<jsp:include page="header.jsp" />
+	<%-- <jsp:include page="header.jsp" /> --%>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="AdminHomePage.jsp">Admin</a> <a
+					class="navbar-brand content-center">User Management System</a>
+			</div>
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="Userlogin.jsp">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 	<div class="container">
 		<table id="example"
 			class="table table-striped table-bordered table_css">
 			<thead>
+				<tr>
+					<th colspan="9" style="text-align: center">User Details</th>
+				</tr>
+
 				<tr>
 					<th>Name</th>
 					<th>Email</th>
@@ -105,7 +130,8 @@ input:checked+.slider:before {
 						<td>${user.userContact}</td>
 						<td>${user.userGender}</td>
 						<td>${user.userHobby}</td>
-						<td><img src="data:image/jpg;base64,${user.base64Image}" width="100" height="100"></td>
+						<td><img src="data:image/jpg;base64,${user.base64Image}"
+							width="100" height="100"></td>
 						<td>${user.userDOB}</td>
 						<td><a href="#"><i class="fa fa-pencil-square-o fa-lg "
 								aria-hidden="true"></i></a> &nbsp;&nbsp;<a id="${user.userId}"
@@ -126,23 +152,30 @@ input:checked+.slider:before {
 		</table>
 	</div>
 
- -->	<script
+	-->
+	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<!-- 	<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
+	<script
+		src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
 	<script
 		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 	<script
 		src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-	<script src="custom/js/datatable.js"></script>
-	<!-- 	<script src="custom/js/change_role.js"></script>
+	<!-- <script src="custom/js/datatable.js"></script>
+ -->	<!-- 	<script src="custom/js/change_role.js"></script>
  -->
 	<script>
 		$(document).ready(function() {
-		alert("ajax working");
-			$(".delete").on("click",function() {
+			
+			
+			$('#example').DataTable({
+				"lengthMenu": [[3, 5, 7, 10, "All"], [3, 5, 7, 10, "All"]]
+			});
+			
+			$(".delete").on("click", function() {
 
 				var rowToDelete = this;
 				var userId = +this.id;
@@ -161,13 +194,13 @@ input:checked+.slider:before {
 					}
 				});
 			});
+			
 			$(".role_admin").on("change", function() {
 				//var id = $(this).val();
 				// var trid = $(this).closest('tr').attr('id'); // table row ID 
 				var trid = +this.id;
-				console.log(trid);
 				$.ajax({
-					url : "ChangeRole?trid=" + trid,
+					url : "ChangeRole",
 					type : "post",
 					data : ({
 						trid : trid,
@@ -177,7 +210,6 @@ input:checked+.slider:before {
 					}
 				})
 			});
-
 
 		});
 	</script>
